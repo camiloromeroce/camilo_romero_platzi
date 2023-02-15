@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MainTextViewTheme" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textSize">@dimen/margin_16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:minLines">2</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="TextViewTheme" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/margin_16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">@dimen/margin_16dp</item>
+    </style>
+
+    <style name="TextViewCardTheme" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textSize">@dimen/size_22sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">@dimen/margin_16dp</item>
+    </style>
+
+</resources>

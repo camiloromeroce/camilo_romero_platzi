@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">camilo_romero_platzi</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_home_detail">Detail</string>
+    <string name="title_home_detail_section">Detail section</string>
+    <string name="comics">Comics</string>
+    <string name="stories">Stories</string>
+    <string name="events">Events</string>
+    <string name="series">Series</string>
+    <string name="titleError">Sorry</string>
+    <string name="ok">Ok</string>
+    <string name="unknownMessage">An unexpected error occurred</string>
+    <string name="noCharactersMessage">Was not possible get information of characters</string>
+    <string name="notDetailsMessage">Was not possible get information of character Detail</string>
+    <string name="noConnectionMessage">Can not make the request, please review you connection</string>
+    <string name="search_title_menu">Search</string>
+    <string name="query_hint">search by character</string>
+</resources>
