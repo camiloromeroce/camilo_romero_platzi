@@ -1,12 +1,12 @@
-package com.example.weather.presentation
+package com.example.weather
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.camilo_romero_platzi.R
-import com.example.camilo_romero_platzi.databinding.ActivityMainBinding
+import com.example.weather.R
+import com.example.weather.databinding.ActivityMainBinding
 
 import dagger.hilt.android.AndroidEntryPoint
 

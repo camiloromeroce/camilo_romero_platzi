@@ -10,10 +10,14 @@
     <string name="series">Series</string>
     <string name="titleError">Sorry</string>
     <string name="ok">Ok</string>
+    <string name="dismiss">Cancel</string>
     <string name="unknownMessage">An unexpected error occurred</string>
     <string name="noCharactersMessage">Was not possible get information of characters</string>
     <string name="notDetailsMessage">Was not possible get information of character Detail</string>
     <string name="noConnectionMessage">Can not make the request, please review you connection</string>
+    <string name="notLocationsMessage">Don\'t was possible get information of locations</string>
+    <string name="notFiltersMessage">Don\'t exist results math</string>
+    <string name="notWeatherStateMessage">Don\'t was possible get information of weather</string>
     <string name="search_title_menu">Search</string>
     <string name="query_hint">search by character</string>
 </resources>

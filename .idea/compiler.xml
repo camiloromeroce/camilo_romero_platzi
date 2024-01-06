@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
+      <module name="camilo_romero_platzi.app" target="17" />
       <module name="WeatherG.app" target="17" />
     </bytecodeTargetLevel>
   </component>
