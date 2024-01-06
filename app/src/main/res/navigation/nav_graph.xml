@@ -7,37 +7,8 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.camilo_romero_platzi.presentation.ui.home.HomeFragment"
+        android:name="com.example.weather.presentation.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_detail4"
-            app:destination="@id/navigation_detail" />
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
 
-    <fragment
-        android:id="@+id/navigation_detail"
-        android:name="com.example.camilo_romero_platzi.presentation.ui.detail.DetailFragment"
-        android:label="@string/title_home_detail"
-        tools:layout="@layout/fragment_detail" >
-        <action
-            android:id="@+id/action_navigation_detail_to_navigation_detail_section"
-            app:destination="@id/navigation_detail_section" />
-        <argument
-            android:name="characterId"
-            app:argType="string" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_detail_section"
-        android:name="com.example.camilo_romero_platzi.presentation.ui.detail_section.DetailSectionFragment"
-        android:label="@string/title_home_detail_section"
-        tools:layout="@layout/fragment_detail_section" >
-        <argument
-            android:name="section"
-            app:argType="string" />
-        <argument
-            android:name="characterId"
-            app:argType="string" />
-    </fragment>
 </navigation>

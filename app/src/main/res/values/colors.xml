@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray_background">#8DC5C4C4</color>
     <color name="red">#e50b14</color>
+    <color name="city_name">#1A1A1A</color>
+    <color name="weather_background">#D4D4D4</color>
+    <color name="weather_background_item_landing">#148367</color>
+    <color name="time_item_landing">#061F1B</color>
 </resources>

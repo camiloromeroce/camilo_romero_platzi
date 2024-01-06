@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.camilo_romero_platzi">
+    package="com.example.weather">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".presentation.di.MarvelApp"
+        android:name="com.example.weather.presentation.di.WeatherApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_marvel_logo"
+        android:icon="@drawable/ic_logo_weather"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_marvel_logo"
+        android:roundIcon="@drawable/ic_logo_weather"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Camilo_romero_platzi.NoActionBar"
+        android:theme="@style/Theme.weather.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.SplashActivity"
-            android:theme="@style/SplashTheme"
-            android:exported="true">
+            android:name="com.example.weather.presentation.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.MainActivity"
+            android:name="com.example.weather.presentation.MainActivity"
             android:exported="true" />
     </application>
 

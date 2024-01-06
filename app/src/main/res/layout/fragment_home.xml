@@ -4,35 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fitsSystemWindows="true"
-    tools:context=".presentation.ui.home.HomeFragment">
+    android:background="@color/weather_background"
+    android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        <TextView
+            android:id="@+id/city_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_24dp"
+            android:textSize="@dimen/text_size_32sp"
+            android:theme="@style/TextViewTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="City Name" />
+
+        <TextView
+            android:id="@+id/city_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_name"
+            tools:text="Wind" />
+
+        <TextView
+            android:id="@+id/city_feels_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_name"
+            tools:text="Feels like 60 " />
+
+        <TextView
+            android:id="@+id/city_ne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_weather"
+            tools:text="NE" />
+
+        <TextView
+            android:id="@+id/city_grades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_feels_like"
+            tools:text="65 / 35 " />
+
+        <TextView
+            android:id="@+id/city_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/city_ne"
+            tools:text="10 mph" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/products_recycler_view"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="@dimen/size_0dp"
             android:layout_marginStart="@dimen/margin_12dp"
+            android:layout_marginTop="@dimen/margin_16dp"
             android:layout_marginEnd="@dimen/margin_12dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/city_speed"
             app:spanCount="2"
-            tools:listitem="@layout/item_view_chapters" />
+            tools:listitem="@layout/item_view_weather_landing" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
