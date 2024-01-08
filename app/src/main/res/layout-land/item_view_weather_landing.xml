@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_6dp"
+    app:cardBackgroundColor="@color/weather_background_item_landing"
+    app:cardElevation="@dimen/margin_6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/hi_temp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintBottom_toTopOf="@id/low_temp_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1:00 pm" />
+
+        <TextView
+            android:id="@+id/low_temp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hi_temp_text"
+            tools:text="1:00 pm" />
+
+        <TextView
+            android:id="@+id/day_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintEnd_toStartOf="@id/icon_forecast_item"
+            app:layout_constraintStart_toEndOf="@id/hi_temp_text"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Friday, November 17" />
+
+        <TextView
+            android:id="@+id/wind_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintEnd_toStartOf="@id/icon_forecast_item"
+            app:layout_constraintStart_toEndOf="@id/hi_temp_text"
+            app:layout_constraintTop_toBottomOf="@id/day_text"
+            tools:text="Wind Speed" />
+
+        <TextView
+            android:id="@+id/wind_speed_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintEnd_toStartOf="@id/icon_forecast_item"
+            app:layout_constraintStart_toEndOf="@id/hi_temp_text"
+            app:layout_constraintTop_toBottomOf="@id/wind_speed"
+            tools:text="19 mph" />
+
+        <TextView
+            android:id="@+id/nw_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icon_forecast_item"
+            app:layout_constraintStart_toEndOf="@id/hi_temp_text"
+            app:layout_constraintTop_toBottomOf="@id/wind_speed_value"
+            tools:text="NW" />
+
+        <ImageView
+            android:id="@+id/icon_forecast_item"
+            android:layout_width="@dimen/size_80dp"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_hot_temperature"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/icon_forecast_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_20dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:textColor="@color/time_item_landing"
+            android:textSize="@dimen/text_size_22sp"
+            android:theme="@style/TextViewTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_forecast_item"
+            tools:text="slightly cloudly" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

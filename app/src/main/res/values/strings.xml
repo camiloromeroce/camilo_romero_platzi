@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">camilo_romero_platzi</string>
+    <string name="app_name">weather_globant</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_home_detail">Detail</string>
@@ -20,4 +20,6 @@
     <string name="notWeatherStateMessage">Don\'t was possible get information of weather</string>
     <string name="search_title_menu">Search</string>
     <string name="query_hint">search by character</string>
+    <string name="home">Home</string>
+    <string name="forecast">Forecast</string>
 </resources>

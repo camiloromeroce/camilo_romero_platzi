@@ -11,6 +11,6 @@
     <color name="red">#e50b14</color>
     <color name="city_name">#1A1A1A</color>
     <color name="weather_background">#D4D4D4</color>
-    <color name="weather_background_item_landing">#148367</color>
-    <color name="time_item_landing">#061F1B</color>
+    <color name="weather_background_item_landing">#008D75</color>
+    <color name="time_item_landing">#001714</color>
 </resources>

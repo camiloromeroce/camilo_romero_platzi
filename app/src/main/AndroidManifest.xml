@@ -8,6 +8,7 @@
 
     <application
         android:name="com.example.weather.presentation.di.Weather"
+        android:configChanges="orientation|screenSize"
         android:allowBackup="true"
         android:icon="@drawable/ic_logo_weather"
         android:label="@string/app_name"

@@ -1,5 +1,6 @@
 package com.example.weather.presentation.data.network
 
+import com.example.lib.model.response.WeatherForecastResponse
 import com.example.lib.model.response.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -13,4 +14,11 @@ interface WeatherApiClient {
         @Query("lon") longitude: Double,
         @Query("appid") apiKey: String
     ): Response <WeatherResponse>
+
+    @GET("forecast")
+    suspend fun getForecastWeather(
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+        @Query("appid") apiKey: String
+    ): Response <WeatherForecastResponse>
 }

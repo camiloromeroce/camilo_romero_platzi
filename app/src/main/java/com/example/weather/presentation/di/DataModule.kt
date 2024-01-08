@@ -1,5 +1,6 @@
 package com.example.weather.presentation.di
 
+import com.example.lib.model.repository.WeatherRepository
 import com.example.lib.model.source.RemoteDataSource
 import com.example.weather.presentation.data.network.WeatherService
 import com.example.weather.presentation.data.network.source.RemoteDataSourceImp
@@ -15,4 +16,8 @@ object DataModule {
     @Provides
     fun provideRemoteDataSource(weatherService: WeatherService): RemoteDataSource =
         RemoteDataSourceImp(weatherService)
+
+    @Provides
+    fun provideRepository(remoteDataSource: RemoteDataSource): WeatherRepository =
+        WeatherRepository(remoteDataSource)
 }

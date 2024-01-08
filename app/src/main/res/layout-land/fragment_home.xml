@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/weather_background"
+    android:fitsSystemWindows="true"
+    tools:context=".presentation.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_home"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            android:layout_margin="@dimen/margin_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/city_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:textSize="@dimen/text_size_32sp"
+                android:textStyle="bold"
+                android:theme="@style/TextViewTheme"
+                app:layout_constraintEnd_toStartOf="@id/weather_recycler_view"
+                app:layout_constraintStart_toEndOf="@id/container_image"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Paris" />
+
+            <TextView
+                android:id="@+id/city_weather"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:textSize="@dimen/text_size_14sp"
+                android:theme="@style/TextViewTheme"
+                app:layout_constraintEnd_toEndOf="@id/city_name"
+                app:layout_constraintStart_toStartOf="@id/city_name"
+                app:layout_constraintTop_toBottomOf="@id/city_name"
+                tools:text="Wind" />
+
+            <LinearLayout
+                android:id="@+id/container_image"
+                android:layout_width="@dimen/size_160dp"
+                android:layout_height="@dimen/size_160dp"
+                android:layout_marginTop="@dimen/margin_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city_weather"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/weather_state_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_logo_weather" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/min_temp_image"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                app:layout_constraintBottom_toTopOf="@id/city_speed"
+                app:layout_constraintEnd_toStartOf="@id/city_grades"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/city_grades" />
+
+            <TextView
+                android:id="@+id/city_speed"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextViewTheme"
+                app:layout_constraintEnd_toEndOf="@+id/min_temp_image"
+                app:layout_constraintStart_toStartOf="@id/min_temp_image"
+                app:layout_constraintTop_toBottomOf="@id/min_temp_image"
+                tools:text="10º" />
+
+            <TextView
+                android:id="@+id/city_grades"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="@dimen/margin_12dp"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_22sp"
+                android:textStyle="bold"
+                android:theme="@style/TextViewTheme"
+                app:layout_constraintEnd_toStartOf="@id/max_temp_image"
+                app:layout_constraintStart_toEndOf="@id/min_temp_image"
+                app:layout_constraintTop_toBottomOf="@id/container_image"
+                tools:text="20º" />
+
+            <ImageView
+                android:id="@+id/max_temp_image"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:src="@drawable/ic_hot_temperature"
+                app:layout_constraintEnd_toEndOf="@id/city_name"
+                app:layout_constraintStart_toEndOf="@id/city_grades"
+                app:layout_constraintTop_toTopOf="@id/city_grades" />
+
+            <ImageView
+                android:id="@+id/humidity_image"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_24dp"
+                android:scaleType="center"
+                app:layout_constraintBottom_toTopOf="@id/city_feels_like"
+                app:layout_constraintEnd_toEndOf="@id/city_speed"
+                app:layout_constraintStart_toStartOf="@id/city_speed"
+                app:tint="@color/time_item_landing" />
+
+            <TextView
+                android:id="@+id/city_feels_like"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextViewTheme"
+                app:layout_constraintBottom_toBottomOf="@id/city_grades"
+                app:layout_constraintEnd_toEndOf="@+id/humidity_image"
+                app:layout_constraintStart_toStartOf="@id/humidity_image"
+                tools:text="Feels like 60" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/weather_recycler_view"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/city_name"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_view_weather_landing" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
