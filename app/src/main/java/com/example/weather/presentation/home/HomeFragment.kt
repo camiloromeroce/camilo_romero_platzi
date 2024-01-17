@@ -126,10 +126,10 @@ class HomeFragment : Fragment() {
         }
         cityGrades.text = buildString {
             append(weatherResponse.main?.tempMax)
-            append("°")
+            append("°F")
             append("/")
             append(weatherResponse.main?.tempMin)
-            append("°")
+            append("°F")
         }
 
         val listMock: List<WeatherItem> = listOf(

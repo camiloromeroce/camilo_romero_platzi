@@ -12,20 +12,22 @@ class WeatherService @Inject constructor(
     suspend fun getLocationsByCoordinates(
         latitude: Double,
         longitude: Double,
-        apiKey: String = "62de9ae593781cbf28040d45dcf9be95"
+        apiKey: String = "62de9ae593781cbf28040d45dcf9be95",
+        units: String = "imperial"
     ): WeatherResponse = withContext(Dispatchers.IO) {
         val response =
-            apiClient.getLocationsByCoordinates(latitude, longitude, apiKey)
+            apiClient.getLocationsByCoordinates(latitude, longitude, apiKey, units)
         response.body() ?: WeatherResponse()
     }
 
     suspend fun getForecastWeather(
         latitude: Double,
         longitude: Double,
-        apiKey: String = "62de9ae593781cbf28040d45dcf9be95"
+        apiKey: String = "62de9ae593781cbf28040d45dcf9be95",
+        units: String = "imperial"
     ): WeatherForecastResponse = withContext(Dispatchers.IO) {
         val response =
-            apiClient.getForecastWeather(latitude, longitude, apiKey)
+            apiClient.getForecastWeather(latitude, longitude, apiKey, units)
         response.body() ?: WeatherForecastResponse()
     }
 

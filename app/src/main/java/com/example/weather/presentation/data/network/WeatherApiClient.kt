@@ -12,13 +12,15 @@ interface WeatherApiClient {
     suspend fun getLocationsByCoordinates(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("appid") apiKey: String
-    ): Response <WeatherResponse>
+        @Query("appid") apiKey: String,
+        @Query("units") units: String
+    ): Response<WeatherResponse>
 
     @GET("forecast")
     suspend fun getForecastWeather(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("appid") apiKey: String
-    ): Response <WeatherForecastResponse>
+        @Query("appid") apiKey: String,
+        @Query("units") units: String
+    ): Response<WeatherForecastResponse>
 }
