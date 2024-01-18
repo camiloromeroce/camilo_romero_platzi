@@ -1,6 +1,7 @@
 package com.example.weather.presentation.home
 
 import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -80,6 +81,23 @@ class HomeFragment : Fragment() {
     private fun initFlowsView() {
         collectViewModelFlows()
         checkPermissionViewModel()
+
+        binding.iconForecast?.setOnClickListener {
+            // Handle click on icon_forecast
+            changeScreenOrientationToLandscape()
+            replaceFragment(ForeCastFragment())
+        }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container_main, fragment)
+        transaction.addToBackStack(null) // Optional, adds the transaction to the back stack
+        transaction.commit()
+    }
+
+    private fun changeScreenOrientationToLandscape() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
 
     private fun checkPermissionViewModel() {

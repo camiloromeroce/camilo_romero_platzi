@@ -25,6 +25,7 @@ class ForecastAdapter(private val listener: (ForecastItemResponse) -> Unit) :
         return ViewHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val forecastItemResponse = getItem(position)
         holder.bind(forecastItemResponse)

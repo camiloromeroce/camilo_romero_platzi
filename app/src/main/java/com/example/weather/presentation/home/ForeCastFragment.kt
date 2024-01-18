@@ -1,5 +1,6 @@
 package com.example.weather.presentation.home
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +59,23 @@ class ForeCastFragment : Fragment() {
             }
         }
         initRecyclerView()
+
+        binding.iconHome.setOnClickListener {
+            // Handle click on icon_forecast
+            changeScreenOrientationToLandscape()
+            replaceFragment(HomeFragment())
+        }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container_main, fragment)
+        transaction.addToBackStack(null) // Optional, adds the transaction to the back stack
+        transaction.commit()
+    }
+
+    private fun changeScreenOrientationToLandscape() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     private fun initRecyclerView() {
