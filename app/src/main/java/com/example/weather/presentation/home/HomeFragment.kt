@@ -24,6 +24,7 @@ import com.example.weather.presentation.onBackPressedCustomAction
 import com.example.weather.presentation.state.WeatherState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Calendar
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -128,7 +129,19 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun showForecastData(forecastResponse: WeatherForecastResponse) = binding.apply {
         val forecastFiveList = forecastResponse.toForecastFiveItemResponse()
-        adapter.submitList(forecastFiveList)
+        val currentDayInSeconds = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.timeInMillis / 1000
+
+        val currentDayForecastList =
+            forecastFiveList.filter {
+                it.dt >= currentDayInSeconds && it.dt < currentDayInSeconds + 86400
+            }
+
+        adapter.submitList(currentDayForecastList)
         adapter.notifyDataSetChanged()
         binding.weatherRecyclerView.adapter = adapter
 
