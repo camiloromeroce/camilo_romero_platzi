@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lib.model.response.ForecastItemFiveResponse
+import com.example.lib.model.response.HomeItemResponse
 import com.example.weather.R
 import com.example.weather.databinding.ItemViewWeatherLandingBinding
 import com.example.weather.presentation.inflate
@@ -17,8 +17,8 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-class WeatherAdapter(private val listener: (ForecastItemFiveResponse) -> Unit) :
-    ListAdapter<ForecastItemFiveResponse, WeatherAdapter.ViewHolder>(DiffUtilCallback) {
+class WeatherHomeAdapter(private val listener: (HomeItemResponse) -> Unit) :
+    ListAdapter<HomeItemResponse, WeatherHomeAdapter.ViewHolder>(DiffUtilCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = parent.inflate(R.layout.item_view_weather_landing, false)
@@ -37,7 +37,7 @@ class WeatherAdapter(private val listener: (ForecastItemFiveResponse) -> Unit) :
             ItemViewWeatherLandingBinding.bind(view)
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(item: ForecastItemFiveResponse) = with(binding) {
+        fun bind(item: HomeItemResponse) = with(binding) {
             val dateTime = LocalDateTime.ofInstant(
                 Instant.ofEpochSecond(item.dt),
                 ZoneId.systemDefault()
@@ -52,14 +52,14 @@ class WeatherAdapter(private val listener: (ForecastItemFiveResponse) -> Unit) :
     }
 }
 
-private object DiffUtilCallback : DiffUtil.ItemCallback<ForecastItemFiveResponse>() {
+private object DiffUtilCallback : DiffUtil.ItemCallback<HomeItemResponse>() {
     override fun areItemsTheSame(
-        oldItem: ForecastItemFiveResponse, newItem: ForecastItemFiveResponse,
+        oldItem: HomeItemResponse, newItem: HomeItemResponse,
     ): Boolean = oldItem.dt == newItem.dt
 
     override fun areContentsTheSame(
-        oldItem: ForecastItemFiveResponse,
-        newItem: ForecastItemFiveResponse
+        oldItem: HomeItemResponse,
+        newItem: HomeItemResponse
     ): Boolean {
         return oldItem == newItem
     }

@@ -75,9 +75,9 @@ data class WeatherForecastResponse(
         @SerializedName("lon") val lon: Double = 0.0
     )
 
-    fun toForecastFiveItemResponse(): List<ForecastItemFiveResponse> {
+    fun toForecastFiveItemResponse(): List<HomeItemResponse> {
         return this.list.map {
-            ForecastItemFiveResponse(
+            HomeItemResponse(
                 dt = it.dt,
                 temp = it.main.temp.toString(),
                 icon = it.weather.firstOrNull()?.icon.orEmpty()

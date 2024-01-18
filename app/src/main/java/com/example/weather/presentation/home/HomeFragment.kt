@@ -1,7 +1,6 @@
 package com.example.weather.presentation.home
 
 import android.annotation.SuppressLint
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +10,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.lib.model.response.HomeItemResponse
 import com.example.lib.model.response.WeatherForecastResponse
 import com.example.lib.model.response.WeatherResponse
 import com.example.weather.R
 import com.example.weather.databinding.FragmentHomeBinding
 import com.example.weather.presentation.getErrorMessage
 import com.example.weather.presentation.getResourceView
-import com.example.weather.presentation.home.adapter.WeatherAdapter
+import com.example.weather.presentation.home.adapter.WeatherHomeAdapter
 import com.example.weather.presentation.home.viewmodel.WeatherViewModel
 import com.example.weather.presentation.launchAndCollect
 import com.example.weather.presentation.onBackPressedCustomAction
@@ -29,11 +29,12 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val viewModel: WeatherViewModel by viewModels()
-    private lateinit var adapter: WeatherAdapter
+    private lateinit var adapter: WeatherHomeAdapter
     private lateinit var _binding: FragmentHomeBinding
     private val binding get() = _binding
     private lateinit var toolbar: Toolbar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private var savedAdapterData: List<HomeItemResponse>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         onBackPressedCustomAction { requireActivity().finish() }
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refreshDataHome()
+            viewModel.refreshData()
         }
         return binding.root
     }
@@ -54,12 +55,25 @@ class HomeFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initFlowsView()
 
-        if (isOrientationChanged()) {
-            replaceWithLandscapeFragment()
+        adapter = WeatherHomeAdapter { _ ->
+            // Handle click action here
         }
+
+        savedInstanceState?.let {
+            savedAdapterData = it.getSerializable("savedAdapterData") as? List<HomeItemResponse>
+        }
+
+        savedAdapterData?.let { data ->
+            adapter.submitList(data)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        savedAdapterData = adapter.currentList
+        outState.putSerializable("savedAdapterData", ArrayList(savedAdapterData.orEmpty()))
     }
 
     private fun initFlowsView() {
@@ -76,22 +90,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun isOrientationChanged(): Boolean {
-        return resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-    }
-
-    private fun replaceWithLandscapeFragment() {
-        val fragment = ForeCastFragment()
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.container_main, fragment)
-            .addToBackStack(null)
-            .commit()
-
-        // Rotate the screen 180 degrees
-        //requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
     }
 
     private fun collectViewModelFlows() =
@@ -127,13 +125,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showForecastData(forecastResponse: WeatherForecastResponse) = binding.apply {
         val forecastFiveList = forecastResponse.toForecastFiveItemResponse()
-        adapter = WeatherAdapter { forecastItem ->
-            // Handle click action here
-            // You can use forecastItem for further processing
-        }
         adapter.submitList(forecastFiveList)
+        adapter.notifyDataSetChanged()
         binding.weatherRecyclerView.adapter = adapter
 
     }
@@ -142,7 +138,6 @@ class HomeFragment : Fragment() {
         val progress = getResourceView(R.id.progress_view)
         progress.setBackgroundResource(R.color.white)
         progress.isVisible = isVisible
-
         swipeRefreshLayout.isRefreshing = false
     }
 

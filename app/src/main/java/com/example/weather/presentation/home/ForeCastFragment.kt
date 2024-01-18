@@ -42,7 +42,7 @@ class ForeCastFragment : Fragment() {
         setHasOptionsMenu(true)
         onBackPressedCustomAction { requireActivity().finish() }
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.refreshForecast()
+            viewModel.refreshData()
         }
         return binding.root
     }

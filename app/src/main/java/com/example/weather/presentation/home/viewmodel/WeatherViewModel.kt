@@ -29,11 +29,8 @@ class WeatherViewModel @Inject constructor(
     var latitude = 4.6927
     var longitude = 74.0939
 
-    fun refreshDataHome() {
+    fun refreshData() {
         init()
-    }
-
-    fun refreshForecast() {
         getForecast()
     }
 
@@ -82,12 +79,11 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-
     private fun setState(state: WeatherState) {
         _state.value = state
     }
 
     private fun setErrorState(errorCode: String?) {
-        setState(WeatherState.Error(errorCode ?: "An unexpected error occured"))
+        setState(WeatherState.Error(errorCode ?: "Unexpected error"))
     }
 }
