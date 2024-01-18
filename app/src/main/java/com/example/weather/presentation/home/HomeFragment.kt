@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.lib.model.response.WeatherItem
+import com.example.lib.model.response.WeatherForecastResponse
 import com.example.lib.model.response.WeatherResponse
 import com.example.weather.R
 import com.example.weather.databinding.FragmentHomeBinding
@@ -46,7 +46,6 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         onBackPressedCustomAction { requireActivity().finish() }
         swipeRefreshLayout.setOnRefreshListener {
-            adapter.submitList(emptyList())
             viewModel.refreshDataHome()
         }
         return binding.root
@@ -66,7 +65,6 @@ class HomeFragment : Fragment() {
     private fun initFlowsView() {
         collectViewModelFlows()
         checkPermissionViewModel()
-        initRecyclerView()
     }
 
     private fun checkPermissionViewModel() {
@@ -74,6 +72,7 @@ class HomeFragment : Fragment() {
             requestLocationPermission { permissionGranted ->
                 if (permissionGranted) {
                     init()
+                    getForecast()
                 }
             }
         }
@@ -95,18 +94,13 @@ class HomeFragment : Fragment() {
         //requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE
     }
 
-    private fun initRecyclerView() {
-        adapter = WeatherAdapter { }
-        binding.weatherRecyclerView.adapter = adapter
-    }
-
-
     private fun collectViewModelFlows() =
         viewLifecycleOwner.launchAndCollect(viewModel.state) { result ->
             showLoading(false)
             when (result) {
                 is WeatherState.LoadingState -> showLoading(true)
                 is WeatherState.ShowWeatherData -> showWeatherData(result.weatherResponse)
+                is WeatherState.ShowForecastData -> showForecastData(result.forecastResponse)
                 is WeatherState.Error -> errorHandler(result.errorMessage)
             }
         }
@@ -122,7 +116,7 @@ class HomeFragment : Fragment() {
         cityFeelsLike.text = buildString {
             append("Feels like: ")
             append(weatherResponse.main?.feelsLike.toString())
-            append("°")
+            append("°F")
         }
         cityGrades.text = buildString {
             append(weatherResponse.main?.tempMax)
@@ -131,33 +125,17 @@ class HomeFragment : Fragment() {
             append(weatherResponse.main?.tempMin)
             append("°F")
         }
+    }
 
-        val listMock: List<WeatherItem> = listOf(
-            WeatherItem(
-                id = 12,
-                main = "1:00 pm",
-                description = "66° F",
-                icon = "03n"
-            ),
-            WeatherItem(
-                id = 13,
-                main = "4:00 pm",
-                description = "66° F",
-                icon = "03n"
-            ),
-            WeatherItem(
-                id = 13,
-                main = "7:00 pm",
-                description = "66° F",
-                icon = "03n"
-            )
-        )
+    private fun showForecastData(forecastResponse: WeatherForecastResponse) = binding.apply {
+        val forecastFiveList = forecastResponse.toForecastFiveItemResponse()
+        adapter = WeatherAdapter { forecastItem ->
+            // Handle click action here
+            // You can use forecastItem for further processing
+        }
+        adapter.submitList(forecastFiveList)
+        binding.weatherRecyclerView.adapter = adapter
 
-        // adapter.submitList(listMock)
-        adapter.submitList(emptyList())
-        adapter.submitList(
-            weatherResponse.weather?.map { it.toWeatherItem() }?.toMutableList() ?: mutableListOf()
-        )
     }
 
     private fun showLoading(isVisible: Boolean) {

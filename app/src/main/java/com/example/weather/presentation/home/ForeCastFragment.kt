@@ -86,9 +86,9 @@ class ForeCastFragment : Fragment() {
             append("°")
         }
 
-        val forecastList = listOfNotNull(forecastResponse.toForecastItemResponse())
+     /*   val forecastList = listOfNotNull(forecastResponse.toForecastItemResponse())
         adapter.submitList(forecastList)
-
+*/
     }
 
     private fun showLoading(isVisible: Boolean) {

@@ -75,16 +75,13 @@ data class WeatherForecastResponse(
         @SerializedName("lon") val lon: Double = 0.0
     )
 
-    fun toForecastItemResponse(): ForecastItemResponse {
-        return ForecastItemResponse(
-            hTemp = this.list.last().main.tempMax,
-            lowTemp = this.list.last().main.tempMin,
-            descriptionDay = "Friday, november 17",
-            weatherDescription = this.list.last().weather.last().main,
-            speed = this.list.last().wind.speed,
-            nw = this.city.name,
-            iconText = this.list.last().weather.last().description,
-            icon = this.list.last().weather.last().icon
-        )
+    fun toForecastFiveItemResponse(): List<ForecastItemFiveResponse> {
+        return this.list.map {
+            ForecastItemFiveResponse(
+                dt = it.dt,
+                temp = it.main.temp.toString(),
+                icon = it.weather.firstOrNull()?.icon.orEmpty()
+            )
+        }
     }
 }
