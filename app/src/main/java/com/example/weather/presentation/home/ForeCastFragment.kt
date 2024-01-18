@@ -58,7 +58,6 @@ class ForeCastFragment : Fragment() {
             }
         }
         initRecyclerView()
-
     }
 
     private fun initRecyclerView() {
@@ -83,12 +82,12 @@ class ForeCastFragment : Fragment() {
         cityNe?.text = forecastResponse.city.population.toString()
         cityGrades.text = buildString {
             append(forecastResponse.list.last().main.temp)
-            append("°")
+            append("°F")
         }
 
-     /*   val forecastList = listOfNotNull(forecastResponse.toForecastItemResponse())
-        adapter.submitList(forecastList)
-*/
+        val forecastListResponse = forecastResponse.toForecastAllItemResponse()
+        adapter.submitList(forecastListResponse)
+        binding.weatherRecyclerView.adapter = adapter
     }
 
     private fun showLoading(isVisible: Boolean) {

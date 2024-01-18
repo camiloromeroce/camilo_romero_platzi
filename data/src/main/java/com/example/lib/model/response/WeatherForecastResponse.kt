@@ -84,4 +84,19 @@ data class WeatherForecastResponse(
             )
         }
     }
+
+    fun toForecastAllItemResponse(): List<ForecastItemResponse> {
+        return this.list.map {
+            ForecastItemResponse(
+                highTemp = it.main.tempMax,
+                lowTemp = it.main.tempMin,
+                descriptionDay = it.dt,
+                weatherDescription = it.weather.firstOrNull()?.description,
+                speed = it.wind.speed,
+                nw = "",
+                iconText = it.weather.firstOrNull()?.main,
+                icon = it.weather.firstOrNull()?.icon
+            )
+        }
+    }
 }

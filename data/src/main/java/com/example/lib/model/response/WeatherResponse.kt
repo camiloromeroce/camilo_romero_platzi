@@ -28,16 +28,7 @@ data class WeatherResponse(
         @SerializedName("main") val main: String?,
         @SerializedName("description") val description: String?,
         @SerializedName("icon") val icon: String?
-    ){
-        fun toWeatherItem(): WeatherItem {
-            return WeatherItem(
-                id = this.id,
-                main = this.main,
-                description = this.description,
-                icon = this.icon
-            )
-        }
-    }
+    )
 
     data class Main(
         @SerializedName("temp") val temp: Double? = 0.0,

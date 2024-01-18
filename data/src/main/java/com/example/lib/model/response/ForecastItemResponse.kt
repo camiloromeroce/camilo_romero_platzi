@@ -1,9 +1,9 @@
 package com.example.lib.model.response
 
 data class ForecastItemResponse(
-    val hTemp: Double,
+    val highTemp: Double,
     val lowTemp: Double,
-    val descriptionDay: String?,
+    val descriptionDay: Long,
     val weatherDescription: String?,
     val speed: Double,
     val nw: String?,
