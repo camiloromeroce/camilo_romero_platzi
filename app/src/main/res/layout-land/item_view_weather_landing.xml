@@ -115,6 +115,7 @@
             android:layout_marginStart="@dimen/size_20dp"
             android:layout_marginTop="@dimen/margin_8dp"
             android:layout_marginBottom="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_24dp"
             android:textColor="@color/time_item_landing"
             android:textSize="@dimen/text_size_22sp"
             android:theme="@style/TextViewTheme"

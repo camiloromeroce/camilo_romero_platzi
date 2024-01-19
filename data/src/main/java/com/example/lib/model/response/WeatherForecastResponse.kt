@@ -1,6 +1,9 @@
 package com.example.lib.model.response
 
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 data class WeatherForecastResponse(
     @SerializedName("cod") val cod: String? = "",
@@ -86,17 +89,39 @@ data class WeatherForecastResponse(
     }
 
     fun toForecastAllItemResponse(): List<ForecastItemResponse> {
-        return this.list.map {
-            ForecastItemResponse(
-                highTemp = it.main.tempMax,
-                lowTemp = it.main.tempMin,
-                descriptionDay = it.dt,
-                weatherDescription = it.weather.firstOrNull()?.description,
-                speed = it.wind.speed,
-                nw = "",
-                iconText = it.weather.firstOrNull()?.main,
-                icon = it.weather.firstOrNull()?.icon
-            )
+        val groupedByDay = this.list.groupBy {
+            val date = Date(it.dt * 1000)
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
+        }
+
+        return groupedByDay.flatMap { (_, itemsForDay) ->
+            val iconTextCounts = itemsForDay
+                .map { it.weather.firstOrNull()?.main }
+                .groupingBy { it }
+                .eachCount()
+
+            val mostRepeatedIconText = iconTextCounts.maxByOrNull { it.value }?.key
+
+            val iconCounts = itemsForDay
+                .map { it.weather.firstOrNull()?.icon }
+                .groupingBy { it }
+                .eachCount()
+
+            val mostRepeatedIcon = iconCounts.maxByOrNull { it.value }?.key
+
+
+            itemsForDay.map {
+                ForecastItemResponse(
+                    highTemp = it.main.tempMax,
+                    lowTemp = it.main.tempMin,
+                    descriptionDay = it.dt,
+                    weatherDescription = it.weather.firstOrNull()?.description,
+                    speed = it.wind.speed,
+                    nw = "",
+                    iconText = mostRepeatedIconText,
+                    icon = mostRepeatedIcon,
+                )
+            }
         }
     }
 }
