@@ -68,6 +68,7 @@ class ForecastAdapter(private val listener: (ForecastItemResponse) -> Unit) :
     }
 }
 
+
 private object DiffUtil : DiffUtil.ItemCallback<ForecastItemResponse>() {
     override fun areItemsTheSame(
         oldItem: ForecastItemResponse, newItem: ForecastItemResponse,

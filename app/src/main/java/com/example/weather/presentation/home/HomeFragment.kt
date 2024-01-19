@@ -58,10 +58,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initFlowsView()
-
-        adapter = WeatherHomeAdapter { _ ->
-            // Handle click action here
-        }
+        adapter = WeatherHomeAdapter { _ -> }
 
         savedInstanceState?.let {
             savedAdapterData = it.getSerializable("savedAdapterData") as? List<HomeItemResponse>
@@ -74,6 +71,7 @@ class HomeFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        adapter = WeatherHomeAdapter { _ -> }
         savedAdapterData = adapter.currentList
         outState.putSerializable("savedAdapterData", ArrayList(savedAdapterData.orEmpty()))
     }
@@ -82,8 +80,7 @@ class HomeFragment : Fragment() {
         collectViewModelFlows()
         checkPermissionViewModel()
 
-        binding.iconForecast?.setOnClickListener {
-            // Handle click on icon_forecast
+        binding.iconForecast.setOnClickListener {
             changeScreenOrientationToLandscape()
             replaceFragment(ForeCastFragment())
         }
@@ -92,7 +89,7 @@ class HomeFragment : Fragment() {
     private fun replaceFragment(fragment: Fragment) {
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container_main, fragment)
-        transaction.addToBackStack(null) // Optional, adds the transaction to the back stack
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 
