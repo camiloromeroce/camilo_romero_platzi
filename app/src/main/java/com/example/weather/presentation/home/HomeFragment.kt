@@ -131,7 +131,6 @@ class HomeFragment : Fragment() {
         ) {
             lifecycleScope.launch {
                 val location = withContext(Dispatchers.IO) {
-
                     fusedLocationClient.lastLocation.await()
                 }
 
@@ -140,8 +139,7 @@ class HomeFragment : Fragment() {
                 } else {
                     viewModel.latitude = 4.6927
                     viewModel.longitude = 74.0939
-                    viewModel.init()
-                    viewModel.getForecast()
+                    getData()
                 }
             }
         } else {
@@ -152,6 +150,10 @@ class HomeFragment : Fragment() {
     private fun handleLocation(latitude: Double, longitude: Double) {
         viewModel.latitude = latitude
         viewModel.longitude = longitude
+        getData()
+    }
+
+    private fun getData() {
         viewModel.init()
         viewModel.getForecast()
     }
@@ -207,7 +209,6 @@ class HomeFragment : Fragment() {
         adapter.submitList(currentDayForecastList)
         adapter.notifyDataSetChanged()
         binding.weatherRecyclerView.adapter = adapter
-
     }
 
     private fun showLoading(isVisible: Boolean) {
