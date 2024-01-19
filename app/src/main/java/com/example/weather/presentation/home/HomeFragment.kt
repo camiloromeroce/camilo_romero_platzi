@@ -1,21 +1,26 @@
 package com.example.weather.presentation.home
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.lib.model.response.HomeItemResponse
 import com.example.lib.model.response.WeatherForecastResponse
 import com.example.lib.model.response.WeatherResponse
 import com.example.weather.R
 import com.example.weather.databinding.FragmentHomeBinding
+import com.example.weather.presentation.await
 import com.example.weather.presentation.getErrorMessage
 import com.example.weather.presentation.getResourceView
 import com.example.weather.presentation.home.adapter.WeatherHomeAdapter
@@ -23,8 +28,13 @@ import com.example.weather.presentation.home.viewmodel.WeatherViewModel
 import com.example.weather.presentation.launchAndCollect
 import com.example.weather.presentation.onBackPressedCustomAction
 import com.example.weather.presentation.state.WeatherState
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Calendar
 
 @AndroidEntryPoint
@@ -37,6 +47,7 @@ class HomeFragment : Fragment() {
     private lateinit var toolbar: Toolbar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var savedAdapterData: List<HomeItemResponse>? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +78,11 @@ class HomeFragment : Fragment() {
         savedAdapterData?.let { data ->
             adapter.submitList(data)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -101,11 +117,43 @@ class HomeFragment : Fragment() {
         with(viewModel) {
             requestLocationPermission { permissionGranted ->
                 if (permissionGranted) {
-                    init()
-                    getForecast()
+                    getLastLocation()
                 }
             }
         }
+    }
+
+    private fun getLastLocation() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            lifecycleScope.launch {
+                val location = withContext(Dispatchers.IO) {
+
+                    fusedLocationClient.lastLocation.await()
+                }
+
+                if (location != null) {
+                    handleLocation(location.latitude, location.longitude)
+                } else {
+                    viewModel.latitude = 4.6927
+                    viewModel.longitude = 74.0939
+                    viewModel.init()
+                    viewModel.getForecast()
+                }
+            }
+        } else {
+            showErrorDialog("Location permission denied")
+        }
+    }
+
+    private fun handleLocation(latitude: Double, longitude: Double) {
+        viewModel.latitude = latitude
+        viewModel.longitude = longitude
+        viewModel.init()
+        viewModel.getForecast()
     }
 
     private fun collectViewModelFlows() =

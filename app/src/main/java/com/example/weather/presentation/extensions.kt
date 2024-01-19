@@ -1,5 +1,6 @@
 package com.example.weather.presentation
 
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +14,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.example.domain.common.DataTypes
-import com.example.weather.R
 import com.example.domain.common.Errors.Companion.connectionErrorCode
 import com.example.domain.common.Errors.Companion.notFiltersErrorCode
 import com.example.domain.common.Errors.Companion.notLocationsErrorCode
 import com.example.domain.common.Errors.Companion.notWeatherStateErrorCode
 import com.example.domain.common.Errors.Companion.unknownErrorCode
+import com.example.weather.R
+import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 fun Fragment.getResourceView(resourceId: Int): View =
     requireActivity().findViewById(resourceId)
@@ -71,6 +76,7 @@ fun <T> formatValue(value: T, type: DataTypes): String {
             val convertedValue = (value as Double) * speedConverter
             DecimalFormat("#,## km/h").format(convertedValue)
         }
+
         DataTypes.DATE -> {
             val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(value.toString())
             SimpleDateFormat("EEEE", Locale.getDefault()).format(date).replaceFirstChar {
@@ -86,3 +92,13 @@ fun ImageView.loadUrl(url: String) {
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = true): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
+
+suspend fun Task<Location>.await(): Location =
+    suspendCancellableCoroutine { continuation ->
+        addOnSuccessListener { location ->
+            continuation.resume(location)
+        }
+        addOnFailureListener { exception ->
+            continuation.resumeWithException(exception)
+        }
+    }

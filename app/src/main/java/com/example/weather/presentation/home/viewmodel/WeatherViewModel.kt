@@ -26,8 +26,8 @@ class WeatherViewModel @Inject constructor(
     private val _state = MutableStateFlow<WeatherState>(WeatherState.LoadingState)
     val state: StateFlow<WeatherState> = _state
 
-    var latitude = 4.6927
-    var longitude = 74.0939
+    var latitude = 0.0
+    var longitude = 0.0
 
     fun refreshData() {
         init()
