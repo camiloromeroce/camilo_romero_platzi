@@ -83,7 +83,6 @@ class ForeCastFragment : Fragment() {
         binding.weatherRecyclerView.adapter = adapter
     }
 
-
     private fun collectViewModelFlows() =
         viewLifecycleOwner.launchAndCollect(viewModel.state) { result ->
             showLoading(false)
